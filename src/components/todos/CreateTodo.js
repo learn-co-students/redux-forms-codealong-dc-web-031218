@@ -1,12 +1,41 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 class CreateTodo extends Component {
+  constructor() {
+    super();
+    this.state = {
+      text: ""
+    };
+  }
+
+  handleChange(event) {
+    this.setState({
+      text: event.target.value
+    });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.store.dispatch({
+      type: "ADD_TODO",
+      todo: this.state
+    });
+  }
+
   render() {
-    return(
+    // debugger;
+    return (
       <div>
-        Create Todo Component
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <p>
+            <label>Add Todo</label>
+            <input type="text" onChange={e => this.handleChange(e)} />
+          </p>
+          <input type="submit" />
+        </form>
+        {this.state.text}
       </div>
-    )
+    );
   }
 }
 
